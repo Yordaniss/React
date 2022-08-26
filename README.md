@@ -3,6 +3,10 @@
 
 Small project to search commits from your repository.
 
+# Example
+
+![alt text](https://github.com/Yordaniss/commit-searcher/blob/master/example.png?raw=true)
+
 ## How it works
 
 ### How the data is stored:
