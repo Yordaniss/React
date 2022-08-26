@@ -48,7 +48,7 @@ class App extends Component {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Autor</th>
+              <th scope="col">Author</th>
               <th scope="col">Message</th>
               <th scope="col">Url</th>
             </tr>
@@ -56,7 +56,7 @@ class App extends Component {
           <tbody>
             {this.state.commits.map(commit =>
               <tr key={commit.id}>
-                <td>{commit.autor}</td>
+                <td>{commit.author}</td>
                 <td>{commit.message}</td>
                 <td>
                   <a href={commit.url}>{commit.url}</a>

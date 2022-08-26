@@ -8,7 +8,7 @@ client.execute(['FLUSHDB'])
 
 const commitSchema = new Schema(Commit, {
   message: { type: 'text' },
-  autor: { type: 'string' },
+  author: { type: 'string' },
   url: { type: 'string' }
 })
 
@@ -36,7 +36,7 @@ response.then(function(result) {
 function saveDataToRedis(message, author, url) {
   const commit = commitRepository.createEntity()
 
-  commit.autor = author
+  commit.author = author
   commit.message = message
   commit.url = url
 
