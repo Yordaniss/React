@@ -1,11 +1,10 @@
 
+
 # Commit-Searcher
 
 Small project to search commits from your repository.
 
 # Example
-
-![alt text](https://github.com/Yordaniss/commit-searcher/blob/master/example.png?raw=true)
 
 ## How it works
 
@@ -13,9 +12,80 @@ Small project to search commits from your repository.
 
 After server was loaded data will be stored to Redis database from api endpoint.
 
+There are several steps to:
+
+* create Schema like this:
+
+```
+const commitSchema = new Schema(Commit, {
+
+	message: { type: 'text' },
+
+	author: { type: 'string' },
+
+	url: { type: 'string' }
+
+})
+```
+
+* get data from your repository:
+```
+const response = octokit.request('GET https://api.github.com/repos/{owner}/{repo}/commits', {
+
+	owner: process.env.GITHUB_OWNER,
+
+	repo: process.env.GITHUB_REPO
+
+});
+```
+* save data to Redis
+
+```
+response.then(function(result) {
+
+	result.data.map((commit) => {
+
+		saveDataToRedis(
+
+			commit.commit.message,
+
+			commit.commit.author.name,
+
+			commit.html_url,
+
+		)
+
+	})
+
+})
+```
+* create index in Redis:
+```
+await  commitRepository.createIndex()
+```
+
 ### How the data is accessed:
 
-Data will be loaded from server via endpoint to frontend. There you can see all commits and search for data.
+Data will be loaded from server via endpoints to frontend. There you can see all commits and search for data.
+
+ 1. Get all data (used **search()** function from Redis repository)
+```
+app.get('/commits', async (req, res) => {
+
+	const commits = await commitRepository.search().return.all();
+
+	res.json(commits)
+
+})
+```
+2. Search messages (used **search()** function from Redis repository with parameters)
+```
+app.post('/search', async (req, res) => {
+	const commits = await commitRepository.search().where('message').matches(req.body.message).return.all()
+
+	res.json(commits)
+})
+```
 
 ## How to run it locally?
 
