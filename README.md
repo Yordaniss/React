@@ -96,10 +96,10 @@ app.post('/search', async (req, res) => {
 
 ### Prerequisites
 
-* For development was used Docker to run Redis. You can self host Redis or create an account at official website  [Redis Cloud](https://redis.info/try-free-dev-to). 
-* Generate token from your GitHub account 
-* Install Node.js and NPM
-* Create .env file with variables:
+1. For development was used Docker to run Redis. You can self host Redis or create an account at official website  [Redis Cloud](https://redis.info/try-free-dev-to). 
+2. Generate token from your GitHub account 
+3. Install Node.js and NPM
+4. Create .env file with variables:
  * [ ] REDIS_URL
  * [ ] GITHUB_TOKEN
  * [ ] GITHUB_OWNER
